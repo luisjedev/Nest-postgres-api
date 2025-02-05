@@ -18,4 +18,9 @@ docker compose up -d
 ```
 npm run start:dev
 ```
+6. Ejecutar SEED
+Peticón Get a:
+```
+http://localhost:3000/api/v1/seed
+```
 
