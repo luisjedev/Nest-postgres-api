@@ -1,25 +1,27 @@
 import { Injectable } from '@nestjs/common';
-import { CreateUserDT0, UpdateUserDTO } from './dto';
+import { CreateUserDT0 } from './dto';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+import { User } from './entities/user.entity';
+import to from 'src/common/helpers/try-catch.helper';
+import { handleDBExceptions } from 'src/common/helpers/handle-db-exception.helper';
 
 @Injectable()
 export class AuthService {
-  create(createUserDTO: CreateUserDT0) {
-    return createUserDTO;
-  }
+  constructor(
+    @InjectRepository(User)
+    private readonly userRepository: Repository<User>,
+  ) {}
 
-  findAll() {
-    return `This action returns all auth`;
-  }
+  async create(createUserDTO: CreateUserDT0) {
+    const user = this.userRepository.create(createUserDTO);
 
-  findOne(id: string) {
-    return `This action returns a #${id} auth`;
-  }
+    const [error, data] = await to(this.userRepository.save(user));
 
-  update(id: string, updateUserDTO: UpdateUserDTO) {
-    return updateUserDTO;
-  }
+    if (error) {
+      handleDBExceptions(error);
+    }
 
-  remove(id: string) {
-    return `This action removes a #${id} auth`;
+    return data;
   }
 }
