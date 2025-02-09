@@ -23,4 +23,10 @@ export class User {
     default: ['user'],
   })
   roles: string[];
+
+  @Column('text', {
+    nullable: false,
+    select: false,
+  })
+  password: string;
 }
