@@ -1,3 +1,5 @@
+import { encrypt } from 'src/auth/lib/encrypt';
+
 interface SeedProduct {
   description: string;
   images: string[];
@@ -14,11 +16,39 @@ interface SeedProduct {
 type ValidSizes = 'XS' | 'S' | 'M' | 'L' | 'XL' | 'XXL' | 'XXXL';
 type ValidTypes = 'shirts' | 'pants' | 'hoodies' | 'hats';
 
+interface SeedUser {
+  email: string;
+  fullName: string;
+  password: string;
+  roles: string[];
+}
+
 interface SeedData {
   products: SeedProduct[];
+  users: SeedUser[];
 }
 
 export const initialData: SeedData = {
+  users: [
+    {
+      email: 'admin.test@gmail.com',
+      fullName: 'Admin test',
+      password: encrypt('Abc123'),
+      roles: ['admin'],
+    },
+    {
+      email: 'super.user.test@gmail.com',
+      fullName: 'Admin test',
+      password: encrypt('Abc123'),
+      roles: ['super-user'],
+    },
+    {
+      email: 'user.test@gmail.com',
+      fullName: 'Admin test',
+      password: encrypt('Abc123'),
+      roles: ['user'],
+    },
+  ],
   products: [
     {
       description:
