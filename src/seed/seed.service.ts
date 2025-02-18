@@ -34,13 +34,8 @@ export class SeedService {
     const seedUsers = initialData.users;
     const users: User[] = [];
     seedUsers.forEach((user) => {
-      const hashedPassword = encrypt(user.password);
-      user.password = hashedPassword;
-      users.push(
-        this.userRepository.create({ ...user, password: hashedPassword }),
-      );
+      users.push(this.userRepository.create(user));
     });
-    this.logger.log(users);
     const dbUsers = await this.userRepository.save(seedUsers);
     return dbUsers[0];
   }

@@ -1,3 +1,5 @@
+import { encrypt } from 'src/auth/lib/encrypt';
+
 interface SeedProduct {
   description: string;
   images: string[];
@@ -31,19 +33,19 @@ export const initialData: SeedData = {
     {
       email: 'admin.test@gmail.com',
       fullName: 'Admin test',
-      password: 'Abc123',
+      password: encrypt('Abc123'),
       roles: ['admin'],
     },
     {
       email: 'super.user.test@gmail.com',
       fullName: 'Admin test',
-      password: 'Abc123',
+      password: encrypt('Abc123'),
       roles: ['super-user'],
     },
     {
       email: 'user.test@gmail.com',
       fullName: 'Admin test',
-      password: 'Abc123',
+      password: encrypt('Abc123'),
       roles: ['user'],
     },
   ],
